@@ -1,7 +1,7 @@
 /*
 Check sub array
  */
-pub(crate) fn example_1() {
+pub(crate) fn check_sub_array() {
     let org_arr = [1, 2,3,5,6,8, 10, 11];
     let sub_arr = [6,8,10];
     let mut result: bool = false;
