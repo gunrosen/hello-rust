@@ -1,7 +1,4 @@
-fn main() {
-    println!("Hello, world!");
-}
-
+use std::collections::HashMap;
 
 // Bài tập
 // Cho ngữ cảnh như sau : Một ngôi trường cần lập danh
@@ -78,32 +75,56 @@ fn main() {
 // Sườn thông tin cho mọi người dễ làm
 
 
-
 pub struct School {
-    // !TODO
+    students: HashMap<String, u32>,
 }
 
 impl School {
     pub fn new() -> School {
-        unimplemented!()
-
+        School { students: HashMap::new() }
     }
 
     pub fn add(&mut self, grade: u32, student: &str) {
-        unimplemented!()
-
-
+        self.students.insert(student.to_string(), grade);
     }
 
     pub fn grades(&self) -> Vec<u32> {
-        unimplemented!()
-
+        let mut grades: Vec<u32> = Vec::new();
+        for (name, grade) in self.students.iter() {
+            grades.push(*grade)
+        }
+        grades
     }
 
 
     pub fn grade(&self, grade: u32) -> Vec<String> {
-        unimplemented!()
-
-
+        let mut found_name: Vec<String> = Vec::new();
+        for (name, student_grade) in self.students.iter() {
+            if grade == *student_grade {
+                found_name.push(name.to_string())
+            }
+        }
+        found_name.sort_by(|a, b| { a.partial_cmp(b).unwrap()});
+        found_name
     }
 }
+
+pub(crate) fn test_day_3() {
+    // [(Bob, 4), (Alice,4), (Tom,5)]
+    let mut my_school = School::new();
+    my_school.add(4, "Bob");
+    my_school.add(4, "Alice");
+    my_school.add(5, "Tom");
+    my_school.add(3, "Nancy");
+    println!("Grades of all students: {:?}", my_school.grades());
+    println!("Students have score of 4: {:?}",my_school.grade(4));
+}
+
+
+
+
+
+
+
+
+
