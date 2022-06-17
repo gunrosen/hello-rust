@@ -1,6 +1,6 @@
 // mod day_1_ex_1;
 // mod day_1_ex_2;
-mod day_2;
+// mod day_2;
 mod day_3;
 
 fn main() {

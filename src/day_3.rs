@@ -90,8 +90,8 @@ impl School {
 
     pub fn grades(&self) -> Vec<u32> {
         let mut grades: Vec<u32> = Vec::new();
-        for (name, grade) in self.students.iter() {
-            grades.push(*grade)
+        for (_name, _grade) in self.students.iter() {
+            grades.push(*_grade)
         }
         grades
     }
