@@ -75,29 +75,29 @@ use std::collections::HashMap;
 // Sườn thông tin cho mọi người dễ làm
 
 
-pub struct School {
-    students: HashMap<String, u32>,
+pub struct School<S> {
+    students: HashMap<String, S>,
 }
 
-impl School {
-    pub fn new() -> School {
+impl<S: std::cmp::PartialEq> School<S> {
+    pub fn new() -> School<S> {
         School { students: HashMap::new() }
     }
 
-    pub fn add(&mut self, grade: u32, student: &str) {
+    pub fn add(&mut self, grade: S, student: &str) {
         self.students.insert(student.to_string(), grade);
     }
 
-    pub fn grades(&self) -> Vec<u32> {
-        let mut grades: Vec<u32> = Vec::new();
-        for (_name, _grade) in self.students.iter() {
-            grades.push(*_grade)
+    pub fn grades(&self) -> Vec<&S> {
+        let mut grades: Vec<&S> = Vec::new();
+        for (_name, grade) in self.students.iter() {
+            grades.push(grade)
         }
         grades
     }
 
 
-    pub fn grade(&self, grade: u32) -> Vec<String> {
+    pub fn grade(&self, grade: S) -> Vec<String> {
         let mut found_name: Vec<String> = Vec::new();
         for (name, student_grade) in self.students.iter() {
             if grade == *student_grade {
@@ -116,8 +116,19 @@ pub(crate) fn test_day_3() {
     my_school.add(4, "Alice");
     my_school.add(5, "Tom");
     my_school.add(3, "Nancy");
+    println!("---- My School ----");
     println!("Grades of all students: {:?}", my_school.grades());
     println!("Students have score of 4: {:?}",my_school.grade(4));
+
+    println!("---- Friend School ----");
+    let mut friend_school : School<String> = School::new();
+    friend_school.add("A+".to_string(), "Nancy");
+    friend_school.add("B+".to_string(), "Bob");
+    friend_school.add("C+".to_string(), "Dean");
+    friend_school.add("B+".to_string(), "Alice");
+
+    println!("Grades of all students: {:?}", friend_school.grades());
+    println!("Students have score of B+: {:?}",friend_school.grade("B+".to_string()));
 }
 
 
