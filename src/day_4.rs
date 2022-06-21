@@ -24,29 +24,32 @@
 // Một số kiến thức để làm dc bài này: Trait, Generic Type, Associated type,
 // Gợi ý có sườn như sau:
 
-// #[derive(Debug)]
-// struct Fibonacci {
-//     a: u32,
-//     b: u32,
-// }
+#[derive(Debug)]
+struct Fibonacci {
+    a: u32,
+    b: u32,
+}
 
-// impl Iterator for Fibonacci {
-//     type Item = TODO!;
+impl Iterator for Fibonacci {
+    type Item = u32;
 
-//     fn next(&mut self) -> Option<u32> {
-//         todo!()
-//     }
-// }
+    fn next(&mut self) -> Option<u32> {
+        let temp:u32 = self.a + self.b;
+        self.b = self.a;
+        self.a = temp;
+        Option::from(temp)
+    }
+}
 
-// fn fibonacci_numbers() -> Fibonacci {
-//     Fibonacci { a: 1, b: 0 }
-// }
+fn fibonacci_numbers() -> Fibonacci {
+    Fibonacci { a: 1, b: 0 }
+}
 
-// fn test_day_4_ex_1() {
-//     for number in fibonacci_numbers() {
-//         println!("{}", number);
-//     }
-// }
+pub(crate) fn test_day_4_ex_1() {
+    for number in fibonacci_numbers() {
+        println!("{}", number);
+    }
+}
 
 
 // Kết quả :
