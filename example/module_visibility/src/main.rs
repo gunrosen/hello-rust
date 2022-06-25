@@ -80,7 +80,7 @@ fn function() {
     println!("called `function()`");
 }
 
-fn test_module_visibility() {
+fn main() {
     // Modules allow disambiguation between items that have the same name.
     function();
     my_mod::function();
@@ -96,25 +96,24 @@ fn test_module_visibility() {
 
     // pub(in path) items can only be called from within the module specified
     // Error! function `public_function_in_my_mod` is private
-    //my_mod::nested::public_function_in_my_mod();
-    // TODO ^ Try uncommenting this line
+    crate::my_mod::public_function_in_my_mod();
 
     // Private items of a module cannot be directly accessed, even if
     // nested in a public module:
 
     // Error! `private_function` is private
-    //my_mod::private_function();
+    my_mod::private_function();
     // TODO ^ Try uncommenting this line
 
     // Error! `private_function` is private
-    //my_mod::nested::private_function();
+    my_mod::nested::private_function();
     // TODO ^ Try uncommenting this line
 
     // Error! `private_nested` is a private module
-    //my_mod::private_nested::function();
+    my_mod::private_nested::function();
     // TODO ^ Try uncommenting this line
 
     // Error! `private_nested` is a private module
-    //my_mod::private_nested::restricted_function();
+    my_mod::private_nested::restricted_function();
     // TODO ^ Try uncommenting this line
 }
